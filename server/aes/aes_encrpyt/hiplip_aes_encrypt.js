@@ -52,52 +52,6 @@ export function HiplipAESEncrypt(text, keys) {
     }
   }
 
-  /* FOR CORRELATION COEFFICIENT */
-  let orig = createGroups(hexText, 4);
-  let cipher = state;
-  let pearsonValues = [];
-
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j++) {
-      orig[i][j] = parseInt(orig[i][j], 16);
-      cipher[i][j] = parseInt(cipher[i][j], 16);
-    }
-  }
-
-  for (let i = 0; i < 4; i++) {
-    const correlation = calculateCorrelation(orig[i], cipher[i]);
-    pearsonValues.push(correlation);
-  }
-
-  let non = 0;
-  let weak = 0;
-  let moderate = 0;
-  let strong = 0;
-  let perfect = 0;
-
-  for (let i = 0; i < pearsonValues.length; i++) {
-    if (pearsonValues[i] === 0) {
-      non++;
-    } else if (
-      (pearsonValues[i] > 0 && pearsonValues[i] <= 0.3) ||
-      (pearsonValues[i] >= -0.3 && pearsonValues[i] < 0)
-    ) {
-      weak++;
-    } else if (
-      (pearsonValues[i] > 0.3 && pearsonValues[i] < 0.7) ||
-      (pearsonValues[i] > -0.7 && pearsonValues[i] < -0.3)
-    ) {
-      moderate++;
-    } else if (
-      (pearsonValues[i] >= 0.7 && pearsonValues[i] < 1) ||
-      (pearsonValues[i] > -1 && pearsonValues[i] <= -0.7)
-    ) {
-      strong++;
-    } else if (pearsonValues[i] === 1 || pearsonValues[i] === -1) {
-      perfect++;
-    }
-  }
-
   // Extra step to ensure the output is in string
   let returningState = [];
 
