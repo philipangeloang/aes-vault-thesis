@@ -31,7 +31,7 @@ const router = createBrowserRouter([
 ]);
 
 const client = new ApolloClient({
-  uri: "https://aes-vault-server.onrender.com",
+  uri: "https://localhost:4000",
   cache: new InMemoryCache(),
 });
 
